@@ -3,6 +3,10 @@ import { useLocation } from "react-router-dom"
 
 import styles from "./Poke.module.css";
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export function Poke() {
 
     const location = useLocation()
@@ -33,15 +37,29 @@ export function Poke() {
     } else if (!isLoaded) {
         return <div>Carregando...</div>;
     } else {
+
+        $.adaptiveBackground.run();
+
         return (
             <div className={styles.Poke}>
-                {/* <img src={pokemon.sprites.front_default}/>
-                <img src={pokemon.sprites.other.dream_world.front_default}/>
-            <img src={pokemon.sprites.other.home.front_default}/> */}
-                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`} />
-                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`} />
-                <h1>{pokemon.name}</h1>
+                {/* <h1>#{pokemon.id.padStart(3,'0')}</h1> */}
+                <h1>#{pokemon.id}</h1>
+                <h1>{capitalizeFirstLetter(pokemon.name)}</h1>
+                <img
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+                    data-adaptive-background
+                />
+                <div>
+                    <p>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore at iusto laborum suscipit illum nemo animi iure voluptatum iste reprehenderit odio minima necessitatibus doloremque sunt, voluptates provident ullam, ipsam similique.
+                    </p>
+                </div>
             </div>
+
         );
     }
 }
+
+{/* <img src={pokemon.sprites.front_default}/>
+<img src={pokemon.sprites.other.dream_world.front_default}/>
+<img src={pokemon.sprites.other.home.front_default}/> */}

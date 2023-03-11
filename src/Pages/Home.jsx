@@ -1,6 +1,19 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom"
 
 import styles from "./Home.module.css";
+
+// interface Pokemon {
+//     id: Number,
+//     name: String,
+//     url: String,
+//     color: String,
+//     types: []
+// }
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 export function Home() {
 
@@ -10,7 +23,7 @@ export function Home() {
 
 
     useEffect(() => {
-        fetch(`https://pokeapi.co/api/v2/pokemon`)
+        fetch(`https://pokeapi.co/api/v2/pokemon/?limit=20`)
             .then(res => res.json())
             .then(
                 (data) => {
@@ -25,25 +38,34 @@ export function Home() {
             )
     }, [])
 
-
     if (error) {
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
         return <div>Carregando...</div>;
     } else {
+
+        $.adaptiveBackground.run();
+
         return (
-            <ul>
+            <div className={styles.pokemonCardContainer}>
+                <header>
+                    <img src={`../../pokeball_icon.svg`} height='100px' />
+                </header>
+                <br />
                 {
-                listPokemons.results.map(pokemon => (
-                    <p>
-                        <a key={pokemon.name} href={`/poke?pokemon=${pokemon.name}`}>
-                            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.url.split('/')[6]}.png`} />
-                            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.url.split('/')[6]}.png`} />
-                            {pokemon.url.split('/')[6]} - {pokemon.name}
+                    listPokemons.results.map(pokemon => (
+                        <a className={styles.pokemonCard} href={`/poke?pokemon=${pokemon.name}`}>
+                            <img
+                                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.url.split('/')[6]}.png`}
+                                data-adaptive-background
+                            />
+                            <div className={styles.pokemonInfo}>
+                                <span className={styles.pokemonNumber}>#{pokemon.url.split('/')[6].padStart(3, '0')}</span>
+                                <span>{capitalizeFirstLetter(pokemon.name)}</span>
+                            </div>
                         </a>
-                    </p>
-                ))}
-            </ul>
+                    ))}
+            </div>
         );
     }
 
