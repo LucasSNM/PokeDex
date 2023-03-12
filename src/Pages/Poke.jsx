@@ -44,7 +44,6 @@ export function Poke() {
             <div className={styles.Poke}>
                 {/* <h1>#{pokemon.id.padStart(3,'0')}</h1> */}
                 <div className={styles.Name}>
-
                     <h1>#{pokemon.id}</h1>
                     <h1>{capitalizeFirstLetter(pokemon.name)}</h1>
                 </div>
@@ -52,8 +51,11 @@ export function Poke() {
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
                     data-adaptive-background
                 />
-                <div>
+                <div className={styles.Description}>
                     <p>
+                        <p>Altura: {pokemon.height}</p>
+                        <p>Largura: {pokemon.weight}</p>
+                        {/* {listPokemons.types.map(type => (<p>1</p>))} */}
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore at iusto laborum suscipit illum nemo animi iure voluptatum iste reprehenderit odio minima necessitatibus doloremque sunt, voluptates provident ullam, ipsam similique.
                     </p>
                 </div>

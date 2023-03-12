@@ -1,14 +1,16 @@
+*{
+    width: 100%;
+}
+
 .Poke{
     height: 100vh;
     margin: 0;
-    padding: 0;
 
     display: flex;
-    flex-direction: columns;
+    /* flex-direction: columns; */
     align-items:center;
-    justify-content:space-between;
+    justify-content:space-between;;
 
-    position: relative;
 
     transition: all 0.5s ease-in-out;
 }
@@ -19,6 +21,13 @@
     z-index:10;
 }
 
-.Poke .Name{
+.Name{
     /* position: absolute; */
+    translate: 0 -20rem;
+    padding: 4rem 0 0 4rem;
+}
+
+.Description{
+    padding: 0 4rem 0 0;
+    flex-shrink: 1;
 }
