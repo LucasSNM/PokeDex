@@ -43,8 +43,11 @@ export function Poke() {
         return (
             <div className={styles.Poke}>
                 {/* <h1>#{pokemon.id.padStart(3,'0')}</h1> */}
-                <h1>#{pokemon.id}</h1>
-                <h1>{capitalizeFirstLetter(pokemon.name)}</h1>
+                <div className={styles.Name}>
+
+                    <h1>#{pokemon.id}</h1>
+                    <h1>{capitalizeFirstLetter(pokemon.name)}</h1>
+                </div>
                 <img
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
                     data-adaptive-background
