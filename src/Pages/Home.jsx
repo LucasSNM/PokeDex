@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // import {MdCatchingPokemon} from '@react-icons/all-files/Md/MdCatchingPokemon'
 
@@ -16,15 +16,36 @@ import styles from "./Home.module.css";
 // }
 
 function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 export function Home() {
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [listPokemons, setListPokemons] = useState([]);
 
-    const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [listPokemons, setListPokemons] = useState([]);
+  useEffect(() => {
+    fetch(`https://pokeapi.co/api/v2/pokemon/?limit=20`)
+      .then((res) => res.json())
+      .then(
+        (data) => {
+          setListPokemons(data);
+          // if (index == limit - 1)
+          setIsLoaded(true);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
+  }, []);
 
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  } else if (!isLoaded) {
+    return <div>Carregando...</div>;
+  } else {
+    $.adaptiveBackground.run();
 
     useEffect(() => {
         fetch(`https://pokeapi.co/api/v2/pokemon/?limit=20`)
@@ -71,8 +92,9 @@ export function Home() {
                         </a>
                     ))}
             </div>
-        );
-    }
-
-
+          </a>
+        ))}
+      </div>
+    );
+  }
 }
