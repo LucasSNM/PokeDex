@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"
 
+// import {MdCatchingPokemon} from '@react-icons/all-files/Md/MdCatchingPokemon'
+
+import { CgPokemon } from "@react-icons/all-files/cg/CgPokemon";
+
 import styles from "./Home.module.css";
 
 // interface Pokemon {
@@ -63,6 +67,7 @@ export function Home() {
                                 <span className={styles.pokemonNumber}>#{pokemon.url.split('/')[6].padStart(3, '0')}</span>
                                 <span>{capitalizeFirstLetter(pokemon.name)}</span>
                             </div>
+                            <CgPokemon size={200} className={styles.icon}/>
                         </a>
                     ))}
             </div>

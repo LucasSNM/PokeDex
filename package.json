@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-icons/all-files": "^4.1.0",
     "colorthief": "^2.4.0",
     "jquery": "^3.6.4",
     "react": "^18.2.0",

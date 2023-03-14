@@ -3,6 +3,9 @@ import { useLocation } from "react-router-dom"
 
 import styles from "./Poke.module.css";
 
+import { FaWeightHanging } from "@react-icons/all-files/fa/FaWeightHanging";
+import { GiBodyHeight } from "@react-icons/all-files/gi/GiBodyHeight";
+
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -52,12 +55,29 @@ export function Poke() {
                     data-adaptive-background
                 />
                 <div className={styles.Description}>
-                    <p>
-                        <p>Altura: {pokemon.height}</p>
-                        <p>Largura: {pokemon.weight}</p>
-                        {/* {listPokemons.types.map(type => (<p>1</p>))} */}
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore at iusto laborum suscipit illum nemo animi iure voluptatum iste reprehenderit odio minima necessitatibus doloremque sunt, voluptates provident ullam, ipsam similique.
+                    <p><GiBodyHeight size={30} />
+                        <span>{pokemon.height}</span>
                     </p>
+                    <p><FaWeightHanging size={30} />
+                        <span>{pokemon.weight}</span>
+                    </p>
+                    {pokemon.stats.map((stat) =>
+                    (<p>
+                        <span>
+                            {capitalizeFirstLetter(stat.stat.name)}:
+                        </span>
+                        <span>
+                            {stat.base_stat}
+                        </span>
+                    </p>)
+                    )}
+                    {pokemon.types.map((type) =>
+                    (<p>
+                        <button>
+                            {capitalizeFirstLetter(type.type.name)}
+                        </button>
+                    </p>)
+                    )}
                 </div>
             </div>
 
