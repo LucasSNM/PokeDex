@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 // import {MdCatchingPokemon} from '@react-icons/all-files/Md/MdCatchingPokemon'
 
-import { CgPokemon } from "@react-icons/all-files/cg/CgPokemon";
+// import { CgPokemon } from "@react-icons/all-files/cg/CgPokemon";
 
 import styles from "./Home.module.css";
 
@@ -40,28 +40,18 @@ export function Home() {
       );
   }, []);
 
+  useEffect(() => {
+    setInterval(() => {
+      $.adaptiveBackground.run();
+    }, 1000);
+  }, []);
+
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
     return <div>Carregando...</div>;
   } else {
     $.adaptiveBackground.run();
-
-    useEffect(() => {
-        fetch(`https://pokeapi.co/api/v2/pokemon/?limit=20`)
-            .then(res => res.json())
-            .then(
-                (data) => {
-                    setListPokemons(data);
-                    // if (index == limit - 1)
-                    setIsLoaded(true)
-                },
-                (error) => {
-                    setIsLoaded(true);
-                    setError(error);
-                }
-            )
-    }, [])
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -79,7 +69,7 @@ export function Home() {
                 <br />
                 {
                     listPokemons.results.map(pokemon => (
-                        <a className={styles.pokemonCard} href={`/poke?pokemon=${pokemon.name}`}>
+                        <a className={styles.pokemonCard} href={`/poke?pokemon=${pokemon.name}`} key={styles.pokemonNumber}>
                             <img
                                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.url.split('/')[6]}.png`}
                                 data-adaptive-background
@@ -88,13 +78,11 @@ export function Home() {
                                 <span className={styles.pokemonNumber}>#{pokemon.url.split('/')[6].padStart(3, '0')}</span>
                                 <span>{capitalizeFirstLetter(pokemon.name)}</span>
                             </div>
-                            <CgPokemon size={200} className={styles.icon}/>
+                            {/* <CgPokemon size={200} className={styles.icon}/> */}
                         </a>
                     ))}
             </div>
-          </a>
-        ))}
-      </div>
-    );
+        )
+      }
   }
 }

@@ -3,8 +3,8 @@ import { useLocation } from "react-router-dom";
 
 import styles from "./Poke.module.css";
 
-import { FaWeightHanging } from "@react-icons/all-files/fa/FaWeightHanging";
-import { GiBodyHeight } from "@react-icons/all-files/gi/GiBodyHeight";
+// import { FaWeightHanging } from "@react-icons/all-files/fa/FaWeightHanging";
+// import { GiBodyHeight } from "@react-icons/all-files/gi/GiBodyHeight";
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -34,12 +34,17 @@ export function Poke() {
       );
   }, []);
 
+  useEffect(() => {
+    setInterval(() => {
+      $.adaptiveBackground.run();
+    }, 1000);
+  }, []);
+
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
     return <div>Carregando...</div>;
   } else {
-    $.adaptiveBackground.run();
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -47,10 +52,8 @@ export function Poke() {
         return <div>Carregando...</div>;
     } else {
 
-        $.adaptiveBackground.run();
-
         return (
-            <div className={styles.Poke}>
+            <div className={styles.Poke} key={pokemon.id}>
                 {/* <h1>#{pokemon.id.padStart(3,'0')}</h1> */}
                 <div className={styles.Name}>
                     <h1>#{pokemon.id}</h1>
@@ -61,24 +64,26 @@ export function Poke() {
                     data-adaptive-background
                 />
                 <div className={styles.Description}>
-                    <p><GiBodyHeight size={30} />
+                    <p>
+                      {/* <GiBodyHeight size={30} /> */}
                         <span>{pokemon.height}</span>
                     </p>
-                    <p><FaWeightHanging size={30} />
+                    <p>
+                      {/* <FaWeightHanging size={30} /> */}
                         <span>{pokemon.weight}</span>
                     </p>
                     {pokemon.stats.map((stat) =>
                     (<p>
-                        <span>
+                        <span key={stat.stat.name}>
                             {capitalizeFirstLetter(stat.stat.name)}:
                         </span>
-                        <span>
+                        <span key={stat.base_stat}>
                             {stat.base_stat}
                         </span>
                     </p>)
                     )}
                     {pokemon.types.map((type) =>
-                    (<p>
+                    (<p key={type.type.name}>
                         <button>
                             {capitalizeFirstLetter(type.type.name)}
                         </button>
@@ -89,10 +94,6 @@ export function Poke() {
 
         );
     }
+  }
 }
 
-{
-  /* <img src={pokemon.sprites.front_default}/>
-<img src={pokemon.sprites.other.dream_world.front_default}/>
-<img src={pokemon.sprites.other.home.front_default}/> */
-}
